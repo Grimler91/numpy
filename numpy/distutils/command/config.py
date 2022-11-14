@@ -332,11 +332,11 @@ class config(old_config):
         body.append("#ifdef _MSC_VER")
         body.append("#pragma function(%s)" % func)
         body.append("#endif")
-        body.append("int main (void) {")
+        body.append("int main (void) __attribute((optnone)) {")
         if call:
             if call_args is None:
                 call_args = ''
-            body.append("  %s(%s);" % (func, call_args))
+            body.append("  double v = %s(%s);" % (func, call_args))
         else:
             body.append("  %s;" % func)
         body.append("  return 0;")
